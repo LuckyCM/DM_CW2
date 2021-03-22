@@ -119,4 +119,26 @@ for i in range(0, 10):
     print("[", i+1, "]: ", word_sorted2[i])
 
 
+#####################################
+# Question 3
+#####################################
+
+# Plot line chart [x - words][y - words frequencies]
+import matplotlib.pyplot as plt
+
+# x = words_count2.keys()
+# y = {k: v / total for total in (sum(words_count2.values()),) for k, v in words_count2.items()}
+sorted_tweet = sorted(words_count2.items(), key=lambda x : x[1])
+x = [i[0] for i in sorted_tweet[79250:]]
+y = [i[1] for i in sorted_tweet[79250:]]
+
+plt.plot(x, y)
+
+plt.xticks(rotation=60)
+plt.show()
+
+
+#####################################
+# Question 4
+#####################################
 print("v")
