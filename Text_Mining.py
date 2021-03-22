@@ -130,7 +130,7 @@ import matplotlib.pyplot as plt
 # y = {k: v / total for total in (sum(words_count2.values()),) for k, v in words_count2.items()}
 sorted_tweet = sorted(words_count2.items(), key=lambda x : x[1])
 x = [i[0] for i in sorted_tweet[79250:]]
-y = [i[1] for i in sorted_tweet[79250:]]
+y = [i[1]/sum(words_count2.values()) for i in sorted_tweet[79250:]]
 
 plt.plot(x, y)
 
@@ -141,4 +141,26 @@ plt.show()
 #####################################
 # Question 4
 #####################################
-print("v")
+print('\n')
+print("Question4:")
+from sklearn.feature_extraction.text import CountVectorizer
+
+X = np.array(message)
+Y = np.array(sentiment)
+
+cv = CountVectorizer()
+X = cv.fit_transform(X)
+
+# Apply SKlearn-MultinomialNB
+from sklearn.naive_bayes import MultinomialNB
+
+MNB = MultinomialNB()
+MNB.fit(X, Y)
+
+# Predict
+predict_sentiment = MNB.predict(X)
+
+# Score the accuracy of predict
+from sklearn import metrics
+score = metrics.accuracy_score(Y, predict_sentiment)
+print("the Accuracy of MultinomialNB: ", score)
