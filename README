@@ -1,0 +1,57 @@
+KEY TO SOLUTIONS TO DATA MING COURSEWORK 2:
+
+SOLUTION FOR QUESTION 1(Text Mining):
+Text_Mining.py
+
+SOLUTION FOR QUESTION 2(Image Processing):
+Image_Processing.py
+
+IN EACH .PY FILE, QUESTIONS HAVE BEEN DIVIDED TO DIFFERENT PARTS:
+E.G.,
+#####################################
+# Question 1
+#####################################
+
+
+AND BRIEFLY EXPLAIN THE FUNCTION OF EACH PYTHON FILE:
+
+#####################################
+# Python file: Text_Mining.py
+#####################################
+1.1 Tweets sentiment analysis.
+1) Compute the possible sentiments of each tweet.
+2) Compute the second most popular sentiment in the tweets.
+3) Find the date with the most extremely positive tweets.
+
+1.2 Tweets words analysis.
+1) Compute total number of all words (including repetitions).
+2) Compute total number of all distinct words.
+3) Count words with no repetition.
+4) The 10 most frequent words in the corpus.
+After remove stop words and charater <= 2, recompute the result:
+5) [Removed]Words count.
+6) [Removed]Words count with no repetition.
+7) [Removed]The 10 most frequent words.
+
+1.3 Plot the line chart of words frequency([x - words][y - words frequencies]).
+
+1.4 Apply Naive Bayes classifier for tweets.
+1) Compute the error rate of classifier.
+2) Compute the Error rate of MultinomialNB.
+
+
+#####################################
+# Python file: Image_Processing.py
+#####################################
+2.1 Avengers Image.
+1) Determine the size of the avengers image.
+2) Transform to grayscale and binary, then plot it.
+
+2.2 Bush house Image:
+1) Add Gaussian random noise.
+2) Filter with Gaussian mask(sigma = 1).
+3) Filter with uniform smoothing mask(size = 9).
+
+2.3 Forestry Image with K-means segmentation then plot it.
+
+2.4 Perform Canny edge detection and Hough Transform on rolland Image then plot it.

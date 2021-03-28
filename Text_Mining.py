@@ -41,9 +41,15 @@ message = data.iloc[:, 4]
 message = [s.lower() for s in message]
 
 import re
+# alphal = re.compile(r'http://[a-zA-Z0-9.?/&=:]*|https://[a-zA-Z0-9.?/&=:]*', re.S)
 alphal = re.compile("[^a-z|^A-Z]")
-for i in range(len( message )):
-    message[i] = alphal.sub(" ", message[i].strip())
+url_reg = r'[a-z]*[:.]+\S+'
+at_reg = r'[@]+\S+'
+# result   = re.sub(url_reg, '', message)
+for i in range(len(message)):
+    message[i] = re.sub(url_reg, '', message[i].strip() )  # - url
+    message[i] = re.sub(at_reg, '', message[i] )    # - @xxx
+    message[i] = re.sub(alphal, " ", message[i])    # keep words
     message[i] = ' '.join(message[i].split())
 message  # after blank combined
 
@@ -129,14 +135,14 @@ import matplotlib.pyplot as plt
 # x = words_count2.keys()
 # y = {k: v / total for total in (sum(words_count2.values()),) for k, v in words_count2.items()}
 sorted_tweet = sorted(words_count2.items(), key=lambda x : x[1])
-x = [i[0] for i in sorted_tweet[79250:]]
-y = [i[1]/sum(words_count2.values()) for i in sorted_tweet[79250:]]
+x = [i[0] for i in sorted_tweet if i[1] > 100]
+y = [i[1]/sum(words_count2.values()) for i in sorted_tweet if i[1] > 100]
 
 plt.plot(x, y)
-
-plt.xticks(rotation=60)
+plt.xticks([])
+# plt.xticks(rotation=60)
+plt.savefig('figure/Line Chart(100).png')
 plt.show()
-
 
 #####################################
 # Question 4
@@ -163,4 +169,4 @@ predict_sentiment = MNB.predict(X)
 # Score the accuracy of predict
 from sklearn import metrics
 score = metrics.accuracy_score(Y, predict_sentiment)
-print("the Accuracy of MultinomialNB: ", score)
+print("the Error rate of MultinomialNB: ", 1-score)
