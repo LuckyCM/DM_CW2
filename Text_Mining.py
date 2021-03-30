@@ -128,6 +128,8 @@ for i in range(0, 10):
 #####################################
 # Question 3
 #####################################
+print('\n')
+print("Question3:")
 
 # Plot line chart [x - words][y - words frequencies]
 import matplotlib.pyplot as plt
@@ -179,6 +181,7 @@ plt.savefig('figure/words_frequencies.png')
 # # plt.xticks(rotation=60)
 # plt.savefig('figure/Line Chart(100).png')
 # plt.show()
+print("PLOT COMPLETED...")
 
 #####################################
 # Question 4
