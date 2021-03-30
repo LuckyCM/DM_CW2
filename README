@@ -9,6 +9,9 @@ Text_Mining.py
 SOLUTION FOR QUESTION 2(Image Processing):
 Image_Processing.py
 
+ABOUT THE FILE 'DATA': >>>>> FOR QUESTION 1: Corona_NLP_train.csv
+                       >>>>> FOR QUESTION 2: image_data
+
 ABOUT THE FILE 'FIGURE': THE QUESTION 1.3'S LINE CHART SAVED IN FIGURE
 
 ABOUT THE FILE 'OUTPUTS': THE QUESTION 2'S ALL IMAGES SAVED IN OUTPUTS
