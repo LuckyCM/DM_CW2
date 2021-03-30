@@ -47,8 +47,8 @@ url_reg = r'[a-z]*[:.]+\S+'
 at_reg = r'[@]+\S+'
 # result   = re.sub(url_reg, '', message)
 for i in range(len(message)):
-    message[i] = re.sub(url_reg, '', message[i].strip() )  # - url
-    message[i] = re.sub(at_reg, '', message[i] )    # - @xxx
+    message[i] = re.sub(url_reg, ' ', message[i].strip() )  # - url
+    message[i] = re.sub(at_reg, ' ', message[i] )    # - @xxx
     message[i] = re.sub(alphal, " ", message[i])    # keep words
     message[i] = ' '.join(message[i].split())
 message  # after blank combined
@@ -59,7 +59,7 @@ message  # after blank combined
 print('\n')
 print("Question2:")
 
-# # Tokenize(self-made)
+# # Tokenize(self-made function, but i choose the more formal function below)
 # tokenized_message = []
 # for i in range(len( message )):
 #     tokenized_message.append( message[i].split() )
@@ -131,25 +131,60 @@ for i in range(0, 10):
 
 # Plot line chart [x - words][y - words frequencies]
 import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import CountVectorizer
+# messageLOW=message.lower()
+message_rebuild = [[] for i in range(len(message))]
+message_list = [[] for i in range(len(message))]
 
-# x = words_count2.keys()
-# y = {k: v / total for total in (sum(words_count2.values()),) for k, v in words_count2.items()}
-sorted_tweet = sorted(words_count2.items(), key=lambda x : x[1])
-x = [i[0] for i in sorted_tweet if i[1] > 100]
-y = [i[1]/sum(words_count2.values()) for i in sorted_tweet if i[1] > 100]
+# Here, we delete the words with less than 2 words and stopwords again
+# because tokenize was used in the front, which cannot be used in CountVectorizer
+for i in range(len(message)):
+    for item in message[i].split():
+        if item not in stop_words and len( item ) > 2:
+            message_rebuild[i].append(item)
+            tmp = (' '.join(str(z) for z in message_rebuild[i]))
+            message_list[i] = tmp
+    # this step is to avoid list in CountVectorizer, else it will report error
+    if len(message_list[i]) == 0:
+        message_list[i] = str(' ')
 
-plt.plot(x, y)
+count_vec = CountVectorizer()  # Creating a vectorizer object
+array = np.array(message_list)
+# vector = count_vec.fit_transform([message_list[i] for i in range(len(message_list))])
+message_vector = count_vec.fit_transform(array)
+
+# Sum the item in message
+message_vector_sum = sum(message_vector.toarray() > 0).tolist()
+message_sum = sorted( zip( message_vector_sum, count_vec.get_feature_names() ), key=lambda x: x[0] )
+
+# here we change the position of x_sorted and y_sorted in message_sum
+x_sorted = [x[1] for x in message_sum]
+y_sorted = [x[0] / len( message ) for x in message_sum]
+
+plt.figure()
+plt.plot(x_sorted, y_sorted)
 plt.xticks([])
-# plt.xticks(rotation=60)
-plt.savefig('figure/Line Chart(100).png')
-plt.show()
+plt.title('The frequencies of words in Tweets')
+plt.xlabel('Words')
+plt.ylabel('Frequencies')
+plt.savefig('figure/words_frequencies.png')
+
+# # ↓↓↓ this code is the first version of plot, but it didn't use CountVectorizer and with very slow speed
+# sorted_tweet = sorted(words_count2.items(), key=lambda x : x[1])
+# x = [i[0] for i in sorted_tweet if i[1] > 100]
+# y = [i[1]/sum(words_count2.values()) for i in sorted_tweet if i[1] > 100]
+# plt.plot(x, y)
+#
+# plt.xticks([])
+# # plt.xticks(rotation=60)
+# plt.savefig('figure/Line Chart(100).png')
+# plt.show()
 
 #####################################
 # Question 4
 #####################################
 print('\n')
 print("Question4:")
-from sklearn.feature_extraction.text import CountVectorizer
 
 X = np.array(message)
 Y = np.array(sentiment)

@@ -13,7 +13,7 @@ rolland = io.imread('data/image_data/rolland_garros_tv5monde.jpg')
 # Question 1
 #####################################
 # print image shape
-print(avengers.size)
+print(avengers.shape)
 
 # grayscale and binaryscale
 from skimage import color, filters
@@ -70,10 +70,11 @@ plt.savefig('outputs/rolland_edges.jpg')
 
 # Apply Hough-Transform
 import numpy as np
-edges = transform.rotate(rolland_edges, 180)
-edges = np.fliplr(edges)
-rolland_hough = transform.probabilistic_hough_line(edges, threshold=160, line_length=110, line_gap=7)
-plt.figure()
+# edges = transform.rotate(rolland_edges, 180)
+# edges = np.fliplr(edges)
+rolland_hough = transform.probabilistic_hough_line(rolland_edges, threshold=160, line_length=110, line_gap=7)
+plt.clf()
+plt.imshow(rolland_edges * 0)
 plt.axis('off')
 for line in rolland_hough:
     p0, p1 = line
