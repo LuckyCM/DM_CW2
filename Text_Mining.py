@@ -8,9 +8,9 @@ DATA_FILE = r'\Corona_NLP_train.csv'
 data = pd.read_csv(DATA_DIR+DATA_FILE)
 
 sentiment = data.iloc[:, 5]
-senti_count = dict(Counter(sentiment))
 # count each type of sentiment in data
-print(senti_count)
+senti_count = dict(Counter(sentiment))
+print('sentiment count:', senti_count)
 
 #####################################
 # Question 1
